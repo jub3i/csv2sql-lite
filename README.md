@@ -100,3 +100,7 @@ lineSeperator | `String`     | `'\n'`        | Optionally specify end of line ma
 ##Testing
 
 Run `npm test` from the base directory to run tests.
+
+##License
+
+MIT
