@@ -26,8 +26,7 @@ async.each(tests, function(test, cb) {
   });
 }, function(err) {
   if (failed === 0) {
-    console.log('\n[SUMMARY] ALL PASSED (Passed ' + passed + '/' + total + ' tests)');
-    console.log('[SUMMARY] Passed ' + passed + '/' + total + ' tests');
+    console.log('\n[SUMMARY] PASSED ALL TESTS (Passed ' + passed + '/' + total + ' tests)');
     process.exit(0);
   } else {
     console.log('\n[SUMMARY] FAILING ' + failed + ' TESTS  (Passed ' + passed + '/' + total + ' tests)');
