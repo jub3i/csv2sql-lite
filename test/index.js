@@ -1,7 +1,7 @@
 /* TEST RUNNER */
 
 var tests = [
-  fixtureTest,
+  fixtureTest
 ];
 
 var async = require('async');
