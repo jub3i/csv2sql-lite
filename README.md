@@ -106,7 +106,7 @@ lineSeperator | `String`     | `'\n'`        | Optionally specify EOL seperator
 Testing
 -------
 
-Run `npm test` from the base directory to run tests.
+Run `npm install && npm test` from the base directory to run tests.
 
 License
 -------
