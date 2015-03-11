@@ -61,7 +61,6 @@ function fixtureTest(cb) {
     });
 
     csv2sql.on('end', function() {
-      console.log(sql);
       var expectedSql =
         'use dbNameSpectacular;\n' +
         'INSERT INTO tableNameAmazing (deviceId,date,latitude,longitude,altitude,accuracy,dataType,ctxFolder,capture) VALUES\n' +
