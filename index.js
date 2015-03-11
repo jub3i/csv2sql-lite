@@ -18,9 +18,9 @@ function CSV2SQL(options) {
   this.isFirstChunk = true;
 
   this.tableName = options.tableName || 'undefined';
+  this.dbName = options.dbName || false;
   this.seperator = options.seperator || ',';
   this.lineSeperator = options.lineSeperator || '\n';
-  this.dbName = options.dbName || false;
 
 
   //helper functions
@@ -68,6 +68,7 @@ CSV2SQL.prototype._transform = function(chunk, enc, cb) {
 
 /* implement transform flush 'event' */
 
+//after all the chunks have been processed, put a ';' to finish off the INSERT
 CSV2SQL.prototype._flush = function(cb) {
   this.push(';');
   cb();
@@ -96,6 +97,7 @@ function insertColumnNames(line) {
 /* helper */
 
 function lineToInsert(line) {
+  //TODO: use a csv parser here, or write own
   var dataArr = line.split(this.seperator);
   var row;
 
@@ -109,7 +111,7 @@ function lineToInsert(line) {
 
   //build up the row (a, b, ... , c)
   for (var i = 0; i < dataArr.length; i++) {
-    if (dataArr[i] === '') {
+    if (dataArr[i] === '' || dataArr[i] === 'NULL') {
       row += 'NULL';
     } else {
       //enclose datums in quotes

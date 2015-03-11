@@ -9,6 +9,7 @@ var total = tests.length;
 var passed = 0;
 var failed = 0;
 
+//run tests in parallel
 async.each(tests, function(test, cb) {
   test(function(err, result) {
     if (err) {
@@ -60,13 +61,13 @@ function fixtureTest(cb) {
     });
 
     csv2sql.on('end', function() {
+      console.log(sql);
       var expectedSql =
         'use dbNameSpectacular;\n' +
         'INSERT INTO tableNameAmazing (deviceId,date,latitude,longitude,altitude,accuracy,dataType,ctxFolder,capture) VALUES\n' +
         '("Elephant","2014/07/28 13:24:39","-25.821133","28.15825","1428","0","2","yoshi@email.org",NULL)\n' +
         ',("Elephant","2014/07/28 13:32:49","-25.821117","28.15825","1430","0","2","yoshi@email.org",NULL)\n' +
-        ',("Elephant","2014/07/28 13:40:11","-25.821967","28.16035","1424","0","2","yoshi@email.org",NULL)\n' +
-        ',(NULL)\n' +
+        ',("Elephant","2014/07/28 13:40:11","-25.821967","28.16035","1424","0",NULL,"yoshi@email.org",NULL)\n' +
         ';';
       if (sql === expectedSql) {
         cb(null, 'generated expected sql');
