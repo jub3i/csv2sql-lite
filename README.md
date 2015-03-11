@@ -1,3 +1,5 @@
+#csv2sql
+
 ```
   _______ _______ ___ ___ _______ _______ _______ ___
  |   _   |   _   |   Y   |       |   _   |   _   |   |
@@ -11,7 +13,7 @@
 
 csv2sql is a [transform stream](https://nodejs.org/api/stream.html#stream_class_stream_transform_1) which is both writable and readable. You would write a `.csv` file/string into it, and read out MySQL INSERT statements. Useful for large `.csv` files so one does not have to buffer the `.csv` into memory.
 
-**Caveat**: The `.csv` parsing is very rudimentary, however it can be replaced easily by many  modules on [npm](www.npmjs.com), look for `lineToInsert()` in the source.
+**Caveat**: The `.csv` parsing is very rudimentary, however it can be replaced easily by many  modules on [npm](https://www.npmjs.com), look for `lineToInsert()` in the source.
 
 **Caveat**: Only tested on \*nix OS, YMMV on Windoze.
 
@@ -91,7 +93,7 @@ You can pass and options object to `csv2sql` containing any of the following:
 Option        | Type         | Default       | Explanation
 ------------- | -------------| ------------- | ------------
 tableName     | `String`     | `'undefined'` | The name of the table to INSERT into
-dbName        | `String`     | `false`       | Optionally insert 'use dbName' at beginning of .sql
+dbName        | `String`     | `false`       | Optionally insert `use dbName` at beginning of `.sql` file
 seperator     | `String`     | `','`         | Optionally specify cell seperator
 lineSeperator | `String`     | `'\n'`        | Optionally specify end of line marker
 
