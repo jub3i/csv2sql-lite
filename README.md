@@ -1,4 +1,5 @@
-#csv2sql-lite
+csv2sql-lite
+============
 
 ```
   _______ _______ ___ ___ _______ _______ _______ ___
@@ -19,7 +20,8 @@ csv2sql-lite is a [transform stream](https://nodejs.org/api/stream.html#stream_c
 
 **Caveat:** Only tested on \*nix OS, YMMV on Windoze.
 
-##Usage
+Usage
+-----
 
 Install:
 
@@ -36,7 +38,8 @@ var csv2sql = CSV2SQL(opts);
 
 See below for the documentation of `opts`, the [options](#options) object.
 
-##Example
+Example
+-------
 
 Open up a read stream to the `.csv` file and a write stream to where you want
 the `.sql` file to be output:
@@ -88,7 +91,8 @@ Then you can easily load the `.sql` file into MySQL:
 mysql -u root -p < mysql.sql
 ```
 
-##Options
+Options
+-------
 
 You can pass an options object to `csv2sql` containing any of the following:
 
@@ -99,10 +103,12 @@ dbName        | `String`     | `false`       | Optionally insert `use dbName;` a
 seperator     | `String`     | `','`         | Optionally specify cell seperator
 lineSeperator | `String`     | `'\n'`        | Optionally specify EOL seperator
 
-##Testing
+Testing
+-------
 
 Run `npm test` from the base directory to run tests.
 
-##License
+License
+-------
 
 MIT
