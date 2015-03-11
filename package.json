@@ -1,0 +1,27 @@
+{
+  "name": "csv2sql",
+  "version": "0.0.1",
+  "description": "nodejs stream for csv to mysql inserts",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jub3i/csv2sql"
+  },
+  "keywords": [
+    "csv",
+    "sql",
+    "mysql",
+    "insert",
+    "convert",
+    "stream"
+  ],
+  "author": "jub3i",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jub3i/csv2sql/issues"
+  },
+  "homepage": "https://github.com/jub3i/csv2sql"
+}
