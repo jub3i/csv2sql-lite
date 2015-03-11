@@ -1,7 +1,7 @@
 {
-  "name": "csv2sql",
+  "name": "csv2sql-lite",
   "version": "0.0.2",
-  "description": "nodejs stream for csv to mysql inserts",
+  "description": "nodejs stream for .csv to MySQL inserts",
   "main": "index.js",
   "scripts": {
     "test": "nodejs test/index.js"
@@ -16,6 +16,7 @@
     "mysql",
     "insert",
     "convert",
+    "tranform",
     "stream"
   ],
   "author": "jub3i",
