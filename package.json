@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jub3i/csv2sql"
+    "url": "https://github.com/jub3i/csv2sql-lite"
   },
   "keywords": [
     "csv",
@@ -22,9 +22,9 @@
   "author": "jub3i",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jub3i/csv2sql/issues"
+    "url": "https://github.com/jub3i/csv2sql-lite/issues"
   },
-  "homepage": "https://github.com/jub3i/csv2sql",
+  "homepage": "https://github.com/jub3i/csv2sql-lite",
   "devDependencies": {
     "async": "^0.9.0"
   }
