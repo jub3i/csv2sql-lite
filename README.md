@@ -1,4 +1,4 @@
-#csv2sql
+#csv2sql-lite
 
 ```
   _______ _______ ___ ___ _______ _______ _______ ___
@@ -7,11 +7,11 @@
  |.  |___|____   |.  |   |/  ___/|____   |.  |   |.  |___
  |:  1   |:  1   |:  1   |:  1  \|:  1   |:  1   |:  1   |
  |::.. . |::.. . |\:.. ./|::.. . |::.. . |::..   |::.. . |
- `-------`-------' `---' `-------`-------`----|:.`-------'
+ `-------`-------' `---' `-------`-------`----|:.`-------' lite
                                               `--'
 ```
 
-csv2sql is a [transform stream](https://nodejs.org/api/stream.html#stream_class_stream_transform_1) which is both writable and readable. You would write a `.csv` file/string into it, and read out MySQL INSERT statements. Useful for large `.csv` files so one does not have to buffer the `.csv` into memory.
+csv2sql-lite is a [transform stream](https://nodejs.org/api/stream.html#stream_class_stream_transform_1) which is both writable and readable. You would write a `.csv` file/string into it, and read out MySQL INSERT statements. Useful for large `.csv` files so one does not have to buffer the `.csv` into memory.
 
 **Note:** See [csv2sql-stream](https://www.npmjs.com/package/csv2sql-stream) on npm for an alternative.
 
@@ -30,7 +30,7 @@ npm install csv2sql-lite
 Use:
 
 ```
-var CSV2SQL = require('csv2sql');
+var CSV2SQL = require('csv2sql-lite');
 var csv2sql = CSV2SQL(opts);
 ```
 
@@ -47,10 +47,10 @@ var rstream = fs.createReadStream('./data.csv');
 var wstream = fs.createWriteStream('./mysql.sql');
 ```
 
-Load the `csv2sql` module, with [options](#options):
+Load the `csv2sql-lite` module, with [options](#options):
 
 ```
-var CSV2SQL = require('csv2sql');
+var CSV2SQL = require('csv2sql-lite');
 var csv2sql = CSV2SQL({
   tableName: 'myTableName',
   dbName: 'myFancyDatabaseName',
@@ -90,7 +90,7 @@ mysql -u root -p < mysql.sql
 
 ##Options
 
-You can pass and options object to `csv2sql` containing any of the following:
+You can pass an options object to `csv2sql` containing any of the following:
 
 Option        | Type         | Default       | Explanation
 ------------- | -------------| ------------- | ------------
