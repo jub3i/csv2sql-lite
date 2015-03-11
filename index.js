@@ -23,7 +23,7 @@ function CSV2SQL(options) {
   this.dbName = options.dbName || false;
 
 
-  //private helper functions
+  //helper functions
   this.insertColumnNames = insertColumnNames;
   this.lineToInsert = lineToInsert;
 
@@ -86,7 +86,7 @@ function insertColumnNames(line) {
   columnNames += ')';
 
   var insert = 'INSERT INTO ' + this.tableName + ' ' + columnNames + ' ' +
-    'VALUES' + '\n';
+    'VALUES';
 
   this.isFirstRowColumnNames = false;
 

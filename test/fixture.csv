@@ -1,0 +1,5 @@
+deviceId,date,latitude,longitude,altitude,accuracy,dataType,ctxFolder,capture
+Elephant,2014/07/28 13:24:39,-25.821133,28.15825,1428,0,2,yoshi@email.org,
+Elephant,2014/07/28 13:32:49,-25.821117,28.15825,1430,0,2,yoshi@email.org,
+Elephant,2014/07/28 13:40:11,-25.821967,28.16035,1424,0,2,yoshi@email.org,
+
