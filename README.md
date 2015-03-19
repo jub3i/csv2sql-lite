@@ -16,7 +16,7 @@ csv2sql-lite is a [transform stream](https://nodejs.org/api/stream.html#stream_c
 
 **Note:** See [csv2sql-stream](https://www.npmjs.com/package/csv2sql-stream) on npm for an alternative.
 
-**Caveat:** The `.csv` parsing is very rudimentary, however it can be replaced easily by many  modules on [npm](https://www.npmjs.com), look for `lineToInsert()` in the source.
+**Caveat:** The `.csv` parsing is very rudimentary, however it can be replaced easily by [many](https://www.npmjs.com/package/csv) [modules](https://www.npmjs.com/package/csv) on [npm](https://www.npmjs.com/search?q=csv), look for `lineToInsert()` in the source.
 
 **Caveat:** Only tested on \*nix OS, YMMV on Windoze.
 
@@ -45,6 +45,7 @@ Open up a read stream to the `.csv` file and a write stream to where you want
 the `.sql` file to be output:
 
 ```
+//csv_stream.js
 var fs = require('fs');
 var rstream = fs.createReadStream('./data.csv');
 var wstream = fs.createWriteStream('./mysql.sql');
@@ -64,6 +65,12 @@ Wire up the streams with `pipe()`:
 
 ```
 rstream.pipe(csv2sql).pipe(wstream);
+```
+
+Execute the program:
+
+```
+$ nodejs csv_stream.js
 ```
 
 If you started with `data.csv` like this:
@@ -88,7 +95,7 @@ INSERT INTO myTableName (username,email,password) VALUES
 Then you can easily load the `.sql` file into MySQL:
 
 ```
-mysql -u root -p < mysql.sql
+$ mysql -u root -p < mysql.sql
 ```
 
 Options
