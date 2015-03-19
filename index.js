@@ -22,7 +22,6 @@ function CSV2SQL(options) {
   this.seperator = options.seperator || ',';
   this.lineSeperator = options.lineSeperator || '\n';
 
-
   //helper functions
   this.insertColumnNames = insertColumnNames;
   this.lineToInsert = lineToInsert;
