@@ -16,7 +16,7 @@ csv2sql-lite is a [transform stream](https://nodejs.org/api/stream.html#stream_c
 
 **Note:** See [csv2sql-stream](https://www.npmjs.com/package/csv2sql-stream) on npm for an alternative.
 
-**Caveat:** The `.csv` parsing is very rudimentary, however it can be replaced easily by [many](https://www.npmjs.com/package/csv) [modules](https://www.npmjs.com/package/csv) on [npm](https://www.npmjs.com/search?q=csv), look for `lineToInsert()` in the source.
+**Caveat:** The `.csv` parsing is very rudimentary, however it can be replaced easily by [many](https://www.npmjs.com/package/csv) [modules](https://www.npmjs.com/package/fast-csv) on [npm](https://www.npmjs.com/search?q=csv), look for `lineToInsert()` in the source.
 
 **Caveat:** Only tested on \*nix OS, YMMV on Windoze.
 
