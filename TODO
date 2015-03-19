@@ -2,6 +2,7 @@
     - optional 'drop' statement
     - drop in replacement for specialized csv parser... only need to wire up one method really...
     - specify chunk data size, wtf is going on here
+    - tags for npm releases
     - name change csvtosql, csvZsql, c2s?
     - command line usage/version?
     - non stream version?
