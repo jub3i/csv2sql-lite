@@ -81,6 +81,10 @@ CSV2SQL.prototype._flush = function(cb) {
   cb();
 };
 
+/* export */
+
+module.exports = CSV2SQL;
+
 /* helper */
 
 function insertColumnNames(line) {
@@ -134,5 +138,3 @@ function lineToInsert(line) {
 
   return row;
 }
-
-module.exports = CSV2SQL;

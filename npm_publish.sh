@@ -45,5 +45,3 @@ cp ./test/index.js $TEMP_LOCATION/test/
 
 #PUBLISH THIS BAD BOY
 npm publish $TEMP_LOCATION
-
-
