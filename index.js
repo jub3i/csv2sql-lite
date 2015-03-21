@@ -19,6 +19,7 @@ function CSV2SQL(options) {
 
   this.tableName = options.tableName || 'undefined';
   this.dbName = options.dbName || false;
+  this.dropTable = options.dropTable || false;
   this.seperator = options.seperator || ',';
   this.lineSeperator = options.lineSeperator || '\n';
 
@@ -41,7 +42,14 @@ CSV2SQL.prototype._transform = function(chunk, enc, cb) {
   var linePush;
 
   if (this.isFirstChunk && this.dbName !== false) {
-    this.push('use ' + this.dbName + ';\n');
+    this.push('USE ' + this.dbName + ';\n');
+  }
+
+  if (this.isFirstChunk && this.dropTable !== false) {
+    this.push('DROP TABLE IF EXISTS ' + this.tableName + ';\n');
+  }
+
+  if (this.isFirstChunk) {
     this.isFirstChunk = false;
   }
 

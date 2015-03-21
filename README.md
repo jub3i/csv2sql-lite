@@ -106,9 +106,10 @@ You can pass an options object to `csv2sql` containing any of the following:
 Option        | Type         | Default       | Explanation
 ------------- | -------------| ------------- | ------------
 tableName     | `String`     | `'undefined'` | The name of the table to INSERT into
-dbName        | `String`     | `false`       | Optionally insert `use dbName;` at beginning of `.sql` file
-seperator     | `String`     | `','`         | Optionally specify cell seperator
-lineSeperator | `String`     | `'\n'`        | Optionally specify EOL seperator
+dbName        | `String`     | `false`       | Optionally insert `USE dbName;` at beginning of `.sql` file
+dropTable     | `Boolean`    | `false`       | Optionally insert `DROP TABLE IF EXISTS tableName;` at beginning of `.sql` file
+seperator     | `String`     | `','`         | Optionally specify `.csv` file field seperator
+lineSeperator | `String`     | `'\n'`        | Optionally specify `.csv` file EOL seperator
 
 Testing
 -------
