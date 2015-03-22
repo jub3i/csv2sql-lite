@@ -14,6 +14,8 @@ csv2sql-lite
 
 csv2sql-lite is a [transform stream](https://nodejs.org/api/stream.html#stream_class_stream_transform_1) which is both writable and readable. You would write a `.csv` file/string into it, and read out MySQL INSERT statements. Useful for large `.csv` files so one does not have to buffer the `.csv` into memory.
 
+**Note:** This repo can be found on npm here: [csv2sql-lite](https://www.npmjs.com/package/csv2sql-lite)
+
 **Note:** See [csv2sql-stream](https://www.npmjs.com/package/csv2sql-stream) on npm for an alternative.
 
 **Caveat:** The `.csv` parsing is very rudimentary, however it can be replaced easily by [many](https://www.npmjs.com/package/csv) [modules](https://www.npmjs.com/package/fast-csv) on [npm](https://www.npmjs.com/search?q=csv), look for `lineToInsert()` in the source.

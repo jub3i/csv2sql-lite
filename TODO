@@ -1,4 +1,5 @@
 - improvements
+    - replace npm_publish.sh with a .npmignore?
     - optional multiple insert statements
     - drop in replacement for specialized csv parser... only need to wire up one method really...
     - specify chunk data size, wtf is going on here
