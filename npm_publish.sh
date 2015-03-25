@@ -9,7 +9,7 @@ then
 fi
 
 #CHECK
-echo "Did you tag the git repo with the corresponding npm version?"
+echo "Did you tag the git repo with the corresponding npm version? (Y/n):"
 read answer
 
 if [ "$answer" != "Y" ]
@@ -19,7 +19,7 @@ then
 fi
 
 #CHECK
-echo "Are you running this script from the base directory? (beware relative paths!):"
+echo "Are you running this script from the base directory? (beware relative paths!): (Y/n):"
 read answer
 
 if [ "$answer" != "Y" ]
@@ -28,11 +28,12 @@ then
     exit
 fi
 
+TEMP_LOCATION="/tmp/csv2sql_dist"
+
 #CLEANUP
-rm -rf /tmp/csv2sql_dist/
+rm -rf $TEMP_LOCATION
 
 #COPY FILES TO TMP LOCATION
-TEMP_LOCATION="/tmp/csv2sql_dist"
 #NOTE: copy needed files explicitly
 mkdir $TEMP_LOCATION
 cp ./README.md $TEMP_LOCATION
