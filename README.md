@@ -83,7 +83,6 @@ john,john@email.com,p455w0rd
 suzie,suzie@email.com,ilovejohn
 ```
 
-
 You'll end up with `mysql.sql` looking like this:
 
 ```
