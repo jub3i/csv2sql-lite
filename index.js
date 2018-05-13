@@ -20,8 +20,8 @@ function CSV2SQL(options) {
   this.tableName = options.tableName || 'undefined';
   this.dbName = options.dbName || false;
   this.dropTable = options.dropTable || false;
-  this.seperator = options.seperator || ',';
-  this.lineSeperator = options.lineSeperator || '\n';
+  this.separator = options.separator || ',';
+  this.lineSeparator = options.lineSeparator || '\n';
 
   //helper functions
   this.insertColumnNames = insertColumnNames;
@@ -53,7 +53,7 @@ CSV2SQL.prototype._transform = function(chunk, enc, cb) {
     this.isFirstChunk = false;
   }
 
-  newLinePos = this.internalBuffer.indexOf(this.lineSeperator);
+  newLinePos = this.internalBuffer.indexOf(this.lineSeparator);
 
   while (newLinePos !== -1) {
     line = this.internalBuffer.substring(0, newLinePos);
@@ -65,7 +65,7 @@ CSV2SQL.prototype._transform = function(chunk, enc, cb) {
       linePush = this.lineToInsert(line);
     }
 
-    newLinePos = this.internalBuffer.indexOf(this.lineSeperator);
+    newLinePos = this.internalBuffer.indexOf(this.lineSeparator);
 
     this.push(linePush + '\n');
   }
@@ -88,7 +88,7 @@ module.exports = CSV2SQL;
 /* helper */
 
 function insertColumnNames(line) {
-  var columnNamesArr = line.split(this.seperator);
+  var columnNamesArr = line.split(this.separator);
   var columnNames = '(';
   for (var i = 0; i < columnNamesArr.length; i++) {
     columnNames += columnNamesArr[i] + ',';
@@ -109,7 +109,7 @@ function insertColumnNames(line) {
 
 function lineToInsert(line) {
   //TODO: use a csv parser here, or write own
-  var dataArr = line.split(this.seperator);
+  var dataArr = line.split(this.separator);
   var row;
 
   //insert comma's between VALUES (..), (..), ... , (..)
