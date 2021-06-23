@@ -111,6 +111,7 @@ dbName        | `String`     | `false`       | Optionally insert `USE dbName;` a
 dropTable     | `Boolean`    | `false`       | Optionally insert `DROP TABLE IF EXISTS tableName;` at beginning of `.sql` file
 seperator     | `String`     | `','`         | Optionally specify `.csv` file field seperator
 lineSeperator | `String`     | `'\n'`        | Optionally specify `.csv` file EOL seperator
+isEveryLineInsert | `Boolean`    | `false`       | Optionally insert `insert into xxx () values ` for every line,This is especially useful when dealing with large amounts of data
 
 Testing
 -------

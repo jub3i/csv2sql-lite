@@ -23,11 +23,15 @@ function CSV2SQL(options) {
   this.seperator = options.seperator || ',';
   this.lineSeperator = options.lineSeperator || '\n';
 
-  //helper functions
+  // every line insert sql
+  this.isEveryLineInsert = options.isEveryLineInsert || false;
+  this.everyLineInsertHead = '';
+
+  // helper functions
   this.insertColumnNames = insertColumnNames;
   this.lineToInsert = lineToInsert;
 
-  //init Transform, call super constructor
+  // init Transform, call super constructor
   Transform.call(this, options);
 }
 util.inherits(CSV2SQL, Transform);
@@ -58,16 +62,24 @@ CSV2SQL.prototype._transform = function(chunk, enc, cb) {
   while (newLinePos !== -1) {
     line = this.internalBuffer.substring(0, newLinePos);
     this.internalBuffer = this.internalBuffer.substring(newLinePos + 1);
-
-    if (this.isFirstRowColumnNames) {
-      linePush = this.insertColumnNames(line);
+    if(this.isEveryLineInsert){
+      if (this.isFirstRowColumnNames) {
+        this.everyLineInsertHead = this.insertColumnNames(line);
+      } else {
+        linePush = this.lineToInsert(line);
+        this.push(this.everyLineInsertHead + linePush + '\n');
+      }
+      
     } else {
-      linePush = this.lineToInsert(line);
+      if (this.isFirstRowColumnNames) {
+        linePush = this.insertColumnNames(line);
+      } else {
+        linePush = this.lineToInsert(line);
+      }
+      this.push(linePush + '\n');
     }
-
+    
     newLinePos = this.internalBuffer.indexOf(this.lineSeperator);
-
-    this.push(linePush + '\n');
   }
 
   cb();
@@ -117,7 +129,7 @@ function lineToInsert(line) {
     row = '(';
     this.isFirstDataRow = false;
   } else {
-    row = ',(';
+    row = this.isEveryLineInsert?' (':',(';
   }
 
   //build up the row (a, b, ... , c)
@@ -134,7 +146,7 @@ function lineToInsert(line) {
       row += ',';
     }
   }
-  row += ')';
+  row += this.isEveryLineInsert?');':')';
 
   return row;
 }
