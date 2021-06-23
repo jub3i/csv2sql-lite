@@ -3,7 +3,7 @@
 var tests = [
   fixtureTest,
   dropTableTest,
-  everyLineTest
+  eachLineTest
 ];
 
 var async = require('async');
@@ -120,12 +120,12 @@ function dropTableTest(cb) {
   });
 }
 
-function everyLineTest(cb) {
+function eachLineTest(cb) {
   var CSV2SQL = require('../index.js');
   var csv2sql = CSV2SQL({
     tableName: 'tableNameAmazing',
     dbName: 'dbNameSpectacular',
-    isEveryLineInsert: true,
+    isEachLineInsert: true,
   });
   var fs = require('fs');
   var rstream;

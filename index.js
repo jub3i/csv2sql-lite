@@ -1,7 +1,7 @@
 /* requires */
 
-var util = require('util');
-var Transform = require('stream').Transform;
+var util = require("util");
+var Transform = require("stream").Transform;
 
 /* constructor */
 
@@ -11,21 +11,23 @@ function CSV2SQL(options) {
     return new CSV2SQL(options);
   }
 
-  this.internalBuffer = '';
+  this.internalBuffer = "";
 
   this.isFirstDataRow = true;
   this.isFirstRowColumnNames = true;
   this.isFirstChunk = true;
 
-  this.tableName = options.tableName || 'undefined';
+  this.tableName = options.tableName || "undefined";
   this.dbName = options.dbName || false;
   this.dropTable = options.dropTable || false;
-  this.seperator = options.seperator || ',';
-  this.lineSeperator = options.lineSeperator || '\n';
+  this.seperator = options.seperator || ",";
+  this.lineSeperator = options.lineSeperator || "\n";
 
   // every line insert sql
-  this.isEveryLineInsert = options.isEveryLineInsert || false;
-  this.everyLineInsertHead = '';
+  this.isEachLineInsert = options.isEachLineInsert || false;
+  this.eachLineInsertHead = "";
+
+  this.eachLineHandler = options.eachLineHandler || null;
 
   // helper functions
   this.insertColumnNames = insertColumnNames;
@@ -39,18 +41,18 @@ util.inherits(CSV2SQL, Transform);
 /* implement transform stream */
 
 //TODO: encoding not 'sticking'
-CSV2SQL.prototype._transform = function(chunk, enc, cb) {
+CSV2SQL.prototype._transform = function (chunk, enc, cb) {
   this.internalBuffer += chunk.toString();
   var newLinePos;
   var line;
   var linePush;
 
   if (this.isFirstChunk && this.dbName !== false) {
-    this.push('USE ' + this.dbName + ';\n');
+    this.push("USE " + this.dbName + ";\n");
   }
 
   if (this.isFirstChunk && this.dropTable !== false) {
-    this.push('DROP TABLE IF EXISTS ' + this.tableName + ';\n');
+    this.push("DROP TABLE IF EXISTS " + this.tableName + ";\n");
   }
 
   if (this.isFirstChunk) {
@@ -62,23 +64,20 @@ CSV2SQL.prototype._transform = function(chunk, enc, cb) {
   while (newLinePos !== -1) {
     line = this.internalBuffer.substring(0, newLinePos);
     this.internalBuffer = this.internalBuffer.substring(newLinePos + 1);
-    if(this.isEveryLineInsert){
-      if (this.isFirstRowColumnNames) {
-        this.everyLineInsertHead = this.insertColumnNames(line);
+
+    if (this.isFirstRowColumnNames) {
+      if (this.isEachLineInsert) {
+        this.eachLineInsertHead = this.insertColumnNames(line);
       } else {
-        linePush = this.lineToInsert(line);
-        this.push(this.everyLineInsertHead + linePush + '\n');
-      }
-      
-    } else {
-      if (this.isFirstRowColumnNames) {
         linePush = this.insertColumnNames(line);
-      } else {
-        linePush = this.lineToInsert(line);
+        this.push(linePush + "\n");
       }
-      this.push(linePush + '\n');
+    } else {
+      linePush = this.lineToInsert(line);
+      this.push(linePush + "\n");
     }
     
+
     newLinePos = this.internalBuffer.indexOf(this.lineSeperator);
   }
 
@@ -88,8 +87,8 @@ CSV2SQL.prototype._transform = function(chunk, enc, cb) {
 /* implement transform flush 'event' */
 
 //after all the chunks have been processed, put a ';' to finish off the INSERT
-CSV2SQL.prototype._flush = function(cb) {
-  this.push(';');
+CSV2SQL.prototype._flush = function (cb) {
+  this.push(";");
   cb();
 };
 
@@ -101,16 +100,16 @@ module.exports = CSV2SQL;
 
 function insertColumnNames(line) {
   var columnNamesArr = line.split(this.seperator);
-  var columnNames = '(';
+  var columnNames = "(";
   for (var i = 0; i < columnNamesArr.length; i++) {
-    columnNames += columnNamesArr[i] + ',';
+    columnNames += columnNamesArr[i] + ",";
   }
   //remove trailing comma
   columnNames = columnNames.substring(0, columnNames.length - 1);
-  columnNames += ')';
+  columnNames += ")";
 
-  var insert = 'INSERT INTO ' + this.tableName + ' ' + columnNames + ' ' +
-    'VALUES';
+  var insert =
+    "INSERT INTO " + this.tableName + " " + columnNames + " " + "VALUES";
 
   this.isFirstRowColumnNames = false;
 
@@ -122,20 +121,22 @@ function insertColumnNames(line) {
 function lineToInsert(line) {
   //TODO: use a csv parser here, or write own
   var dataArr = line.split(this.seperator);
-  var row;
-
+  var row = "";
+  if (this.isEachLineInsert && this.eachLineInsertHead) {
+    row = this.eachLineInsertHead;
+  }
   //insert comma's between VALUES (..), (..), ... , (..)
   if (this.isFirstDataRow) {
-    row = '(';
+    row += "(";
     this.isFirstDataRow = false;
   } else {
-    row = this.isEveryLineInsert?' (':',(';
+    row += this.isEachLineInsert ? " (" : ",(";
   }
 
   //build up the row (a, b, ... , c)
   for (var i = 0; i < dataArr.length; i++) {
-    if (dataArr[i] === '' || dataArr[i] === 'NULL') {
-      row += 'NULL';
+    if (dataArr[i] === "" || dataArr[i] === "NULL") {
+      row += "NULL";
     } else {
       //enclose datums in quotes
       row += '"' + dataArr[i] + '"';
@@ -143,10 +144,12 @@ function lineToInsert(line) {
 
     //insert comma's between datums
     if (i !== dataArr.length - 1) {
-      row += ',';
+      row += ",";
     }
   }
-  row += this.isEveryLineInsert?');':')';
-
+  row += this.isEachLineInsert ? ");" : ")";
+  if (this.eachLineHandler) {
+    row = this.eachLineHandler(row);
+  }
   return row;
 }
